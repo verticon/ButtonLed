@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E148B8571E258B2E002DFD07 /* buttonLedUuids.swift in Sources */ = {isa = PBXBuildFile; fileRef = E148B8561E258B2E002DFD07 /* buttonLedUuids.swift */; };
 		E1A2E0791C03A89600820375 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2E0781C03A89600820375 /* AppDelegate.swift */; };
 		E1A2E07B1C03A89600820375 /* StandaloneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2E07A1C03A89600820375 /* StandaloneViewController.swift */; };
 		E1A2E07E1C03A89600820375 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A2E07C1C03A89600820375 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E148B8561E258B2E002DFD07 /* buttonLedUuids.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = buttonLedUuids.swift; sourceTree = "<group>"; };
 		E1A2E0751C03A89600820375 /* ButtonLed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButtonLed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A2E0781C03A89600820375 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1A2E07A1C03A89600820375 /* StandaloneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandaloneViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				E1A2E07F1C03A89600820375 /* Assets.xcassets */,
 				E1A2E0811C03A89600820375 /* LaunchScreen.storyboard */,
 				E1A2E0841C03A89600820375 /* Info.plist */,
+				E148B8561E258B2E002DFD07 /* buttonLedUuids.swift */,
 			);
 			path = ButtonLed;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E148B8571E258B2E002DFD07 /* buttonLedUuids.swift in Sources */,
 				E1A2E07B1C03A89600820375 /* StandaloneViewController.swift in Sources */,
 				E1A2E0791C03A89600820375 /* AppDelegate.swift in Sources */,
 				E1CB81821E2451F80033FBB4 /* ToolboxViewController.swift in Sources */,

@@ -18,14 +18,6 @@ class StandaloneViewController: UIViewController {
 
     @IBOutlet weak var toggleLedButton: ToggleButton!
 
-    let uuidMappings = [
-        CBUUID(string: "2901") : "CharacteristicUserDescription",
-        CBUUID(string: "2902") : "ClientCharacteristicConfiguration",
-        
-        CBUUID(string: "DCBA3154-1212-EFDE-1523-785FEF13D123") : "ButtonLed",
-        CBUUID(string: "DCBA1523-1212-EFDE-1523-785FEF13D123") : "LED",
-        CBUUID(string: "DCBA1524-1212-EFDE-1523-785FEF13D123") : "Button"]
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -263,7 +255,7 @@ extension StandaloneViewController {
     }
 
     func lookupNameFor(_ uuid: CBUUID) -> String {
-        if let name = uuidMappings[uuid] {
+        if let name = buttonLedUuids[uuid] {
             return name
         }
         return uuid.uuidString
