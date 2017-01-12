@@ -15,9 +15,6 @@ let buttonCharacteristicName = "Button"
 let ledCharacteristicName = "LED"
 
 let buttonLedUuids : BidirectionalDictionary<CBUUID, String> = [
-
-    CBUUID(string: "2901") : "CharacteristicUserDescription",
-    CBUUID(string: "2902") : "ClientCharacteristicConfiguration",
     
     CBUUID(string: "DCBA3154-1212-EFDE-1523-785FEF13D123") : buttonLedServiceName,
     CBUUID(string: "DCBA1523-1212-EFDE-1523-785FEF13D123") : ledCharacteristicName,
