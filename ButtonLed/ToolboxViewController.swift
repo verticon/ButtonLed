@@ -40,10 +40,12 @@ class ToolboxViewController: UIViewController, CentralManagerTypesFactory {
     }
     
     // This is the toggle button listener. It will be called whenever the button is toggled.
-    // The button can be toggled in one of two ways:
-    // 1) The user touches it on the UI causing the button's toggle() method to be invoked.
-    // 2) The ButtonLed peripheral's button is pressed. This causes our notification
-    //    handler to be invoked. The handler in turn invokes the button's toggle() method.
+    // The button will be toggled in one of two ways:
+    //     1) The user touches it on the UI causing the button's toggle() method to be invoked.
+    //     2) The ButtonLed peripheral's button is pressed. This causes our notification
+    //        handler to be invoked. The handler in turn invokes the button's toggle() method.
+    // The button's toggle method will invoke the listener. Our listener responds by setting
+    // the ButtonLed peripheral's LED to the indicated state.
     private func toggleLed(_ on: Bool) {
         print("Toggling the LED to \(on ? "on" : "off")")
 
@@ -65,43 +67,59 @@ class ToolboxViewController: UIViewController, CentralManagerTypesFactory {
         switch event {
 
         case .managerReady:
-            print("Central Manager - the manager is ready; starting scanning.")
+            print("Central Manager Event - the manager is ready")
             do {
+                print("Starting scanning.")
                 try manager.startScanning()
             } catch {
-                print("Central Manager - starting scanning caused an exception: \(error).")
+                print("Starting scanning caused an exception: \(error).")
             }
 
         case .peripheralReady(let peripheral):
-            guard ledCharacteristic == nil else {
-                print("Central Manager -  the ButtonLed peripheral was rediscovered???\n\(peripheral).")
-                break
+            print("Central Manager Event - a peripheral matching our subscription has been discovered.\n\(peripheral).")
+            guard self.ledCharacteristic == nil else {
+                print("The ButtonLed peripheral has already been discovered!")
+                return
             }
-
-            print("Central Manager - the ButtonLed peripheral's discovery has completed. Enabling button notifications")
-
-            let buttonLedService = peripheral[buttonLedServiceId]!
-
-            ledCharacteristic = buttonLedService[ledCharacteristicId]
-            toggleLedButton.isEnabled = true
-
-            do {
-                try buttonLedService[buttonCharacteristicId]?.notify(enabled: true) { result in
-                    switch result {
-                    case .success:
-                        print("ButtonLed Peripheral - the button was pushed.")
-                        self.toggleLedButton.toggle()
-                    case .failure(let error):
-                        print("ButtonLed Peripheral - a button notification error occurred: \(error).")
-                    }
-                }
-            } catch {
-                print("Central Manager - enabling button notifications caused an exception: \(error).")
-            }
-
+            process(peripheral:peripheral)
 
         default:
-            print("Central Manager - the manager sent an event: \(event).")
+            print("Central Manager Event - \(event).")
+        }
+    }
+    
+    private func process(peripheral: CentralManager.Peripheral) {
+        guard let buttonLedService = peripheral[buttonLedServiceId] else {
+            print("The peripheral does not have a ButtonLed service.")
+            return
+        }
+        
+        
+        guard let characteristic = buttonLedService[ledCharacteristicId] else {
+            print("The ButtonLed service does not have an Led characterictic.")
+            return
+        }
+        self.ledCharacteristic = characteristic
+        toggleLedButton.isEnabled = true
+        
+        
+        guard let buttonCharacteristic = buttonLedService[buttonCharacteristicId] else {
+            print("The ButtonLed service does not have a Button characterictic.")
+            return
+        }
+        do {
+            print("Enabling button notifications.")
+            try buttonCharacteristic.notify(enabled: true) { result in
+                switch result {
+                case .success:
+                    print("Button Notification - the button was pushed.")
+                    self.toggleLedButton.toggle()
+                case .failure(let error):
+                    print("Button Notification - an error occurred: \(error).")
+                }
+            }
+        } catch {
+            print("Enabling button notifications caused an exception: \(error).")
         }
     }
 }
