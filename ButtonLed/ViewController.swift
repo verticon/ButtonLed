@@ -1,15 +1,16 @@
 //
-//  ToolboxViewController.swift
+//  ViewController.swift
 //  ButtonLed
 //
 //  Created by Robert Vaessen on 1/9/17.
 //  Copyright © 2017 Robert Vaessen. All rights reserved.
 //
 
-import Toolbox
 import UIKit
+import VerticonsToolbox
+import MoBetterBluetooth
 
-class ToolboxViewController: UIViewController, CentralManagerTypesFactory {
+class ViewController: UIViewController, CentralManagerTypesFactory {
 
     @IBOutlet weak var toggleLedButton: ToggleButton!
 

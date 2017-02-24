@@ -1,0 +1,6 @@
+[submodule "Carthage/Checkouts/VerticonsToolbox"]
+	path = Carthage/Checkouts/VerticonsToolbox
+	url = https://github.com/verticon/VerticonsToolbox.git
+[submodule "Carthage/Checkouts/MoBetterBluetooth"]
+	path = Carthage/Checkouts/MoBetterBluetooth
+	url = https://github.com/verticon/MoBetterBluetooth.git

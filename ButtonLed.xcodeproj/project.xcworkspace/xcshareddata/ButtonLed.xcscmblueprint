@@ -1,0 +1,29 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "933664F1991E40417786133CFABD09BC039D6EF9" : 9223372036854775807,
+    "D2D581E908C031DC3A0557542C7D0A6D582E26B2" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8798195D-7BA0-407D-853A-B5ACDF4E4A5E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "933664F1991E40417786133CFABD09BC039D6EF9" : "ButtonLed\/Carthage\/Checkouts\/MoBetterBluetooth\/",
+    "D2D581E908C031DC3A0557542C7D0A6D582E26B2" : "ButtonLed\/Carthage\/Checkouts\/MoBetterBluetooth\/Carthage\/Checkouts\/VerticonsToolbox\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ButtonLed",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ButtonLed.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/verticon\/MoBetterBluetooth.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "933664F1991E40417786133CFABD09BC039D6EF9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/verticon\/VerticonsToolbox.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D2D581E908C031DC3A0557542C7D0A6D582E26B2"
+    }
+  ]
+}

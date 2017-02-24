@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Toolbox
+import VerticonsToolbox
 import CoreBluetooth
 
 let buttonLedServiceName = "ButtonLed"
