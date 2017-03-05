@@ -10,9 +10,9 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8798195D-7BA0-407D-853A-B5ACDF4E4A5E",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "933664F1991E40417786133CFABD09BC039D6EF9" : "ButtonLed\/Carthage\/Checkouts\/MoBetterBluetooth\/",
+    "933664F1991E40417786133CFABD09BC039D6EF9" : "ButtonLed\/MoBetterBluetooth\/",
     "F772920BC3067A954B9D8D6A47C5684D0E2377DE" : "ButtonLed\/",
-    "D2D581E908C031DC3A0557542C7D0A6D582E26B2" : "ButtonLed\/Carthage\/Checkouts\/MoBetterBluetooth\/Carthage\/Checkouts\/VerticonsToolbox\/"
+    "D2D581E908C031DC3A0557542C7D0A6D582E26B2" : "ButtonLed\/MoBetterBluetooth\/Carthage\/Checkouts\/VerticonsToolbox\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "ButtonLed",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
