@@ -7,8 +7,6 @@ The iOS application presents a button; it responds to touches by toggling the st
 
 Notes:
 
-* When cloning this repo use the --recursive option so as to obtain the submodules; the application depends upon them.
+* The ButtonLed application's xcode project includes subprojects which are in the submodules of the application's GitHub repository. Therefore, clone the application's repository using the --recursive option so as to obtain the submodules.
 
 * Copy Nordic/ble_app_button_led to (Nordic SDK Location)/examples/ble_peripheral then build and flash as normal (I tried using symbolic links but they [do not work](http://unix.stackexchange.com/questions/158126/cd-and-ls-behave-differently-when-inside-a-softlink-to-a-dir)). I am using [SDK 10.0.0](https://developer.nordicsemi.com/nRF5_SDK/nRF51_SDK_v10.x.x/) and [S110 SD v8](http://www.nordicsemi.com/eng/Products/ANT/nRF51422)
-
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)

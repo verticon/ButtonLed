@@ -8,27 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		E148B8571E258B2E002DFD07 /* buttonLedUuids.swift in Sources */ = {isa = PBXBuildFile; fileRef = E148B8561E258B2E002DFD07 /* buttonLedUuids.swift */; };
-		E16656691E607B0C00CDA308 /* MoBetterBluetooth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E16656651E607A1B00CDA308 /* MoBetterBluetooth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E166566B1E607BBA00CDA308 /* VerticonsToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E166566A1E607BBA00CDA308 /* VerticonsToolbox.framework */; };
-		E166566C1E607BBA00CDA308 /* VerticonsToolbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E166566A1E607BBA00CDA308 /* VerticonsToolbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1A2E0791C03A89600820375 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A2E0781C03A89600820375 /* AppDelegate.swift */; };
 		E1A2E07E1C03A89600820375 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A2E07C1C03A89600820375 /* Main.storyboard */; };
 		E1A2E0801C03A89600820375 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1A2E07F1C03A89600820375 /* Assets.xcassets */; };
 		E1A2E0831C03A89600820375 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A2E0811C03A89600820375 /* LaunchScreen.storyboard */; };
+		E1C37BDF1E6C848B009C4598 /* MoBetterBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C37BDC1E6C8316009C4598 /* MoBetterBluetooth.framework */; };
+		E1C37BE01E6C848B009C4598 /* MoBetterBluetooth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1C37BDC1E6C8316009C4598 /* MoBetterBluetooth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1C37BE31E6C848B009C4598 /* VerticonsToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E166566A1E607BBA00CDA308 /* VerticonsToolbox.framework */; };
+		E1C37BE41E6C848B009C4598 /* VerticonsToolbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E166566A1E607BBA00CDA308 /* VerticonsToolbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1CB81821E2451F80033FBB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB81811E2451F80033FBB4 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E16656641E607A1B00CDA308 /* PBXContainerItemProxy */ = {
+		E1C37BDB1E6C8316009C4598 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E166565F1E607A1B00CDA308 /* MoBetterBluetooth.xcodeproj */;
+			containerPortal = E1C37BD61E6C8316009C4598 /* MoBetterBluetooth.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = E1B761E01E5DB07C00B01E19;
 			remoteInfo = MoBetterBluetooth;
 		};
-		E16656671E607A5400CDA308 /* PBXContainerItemProxy */ = {
+		E1C37BDD1E6C83F5009C4598 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E166565F1E607A1B00CDA308 /* MoBetterBluetooth.xcodeproj */;
+			containerPortal = E1C37BD61E6C8316009C4598 /* MoBetterBluetooth.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E1B761DF1E5DB07C00B01E19;
+			remoteInfo = MoBetterBluetooth;
+		};
+		E1C37BE11E6C848B009C4598 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1C37BD61E6C8316009C4598 /* MoBetterBluetooth.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = E1B761DF1E5DB07C00B01E19;
 			remoteInfo = MoBetterBluetooth;
@@ -36,14 +44,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E1CB81861E2454670033FBB4 /* Embed Frameworks */ = {
+		E1C37BE51E6C848B009C4598 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E166566C1E607BBA00CDA308 /* VerticonsToolbox.framework in Embed Frameworks */,
-				E16656691E607B0C00CDA308 /* MoBetterBluetooth.framework in Embed Frameworks */,
+				E1C37BE41E6C848B009C4598 /* VerticonsToolbox.framework in Embed Frameworks */,
+				E1C37BE01E6C848B009C4598 /* MoBetterBluetooth.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,7 +60,6 @@
 
 /* Begin PBXFileReference section */
 		E148B8561E258B2E002DFD07 /* buttonLedUuids.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = buttonLedUuids.swift; sourceTree = "<group>"; };
-		E166565F1E607A1B00CDA308 /* MoBetterBluetooth.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MoBetterBluetooth.xcodeproj; path = Carthage/Checkouts/MoBetterBluetooth/MoBetterBluetooth.xcodeproj; sourceTree = "<group>"; };
 		E166566A1E607BBA00CDA308 /* VerticonsToolbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = VerticonsToolbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A2E0751C03A89600820375 /* ButtonLed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ButtonLed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A2E0781C03A89600820375 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +67,7 @@
 		E1A2E07F1C03A89600820375 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1A2E0821C03A89600820375 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1A2E0841C03A89600820375 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1C37BD61E6C8316009C4598 /* MoBetterBluetooth.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MoBetterBluetooth.xcodeproj; path = MoBetterBluetooth/MoBetterBluetooth.xcodeproj; sourceTree = "<group>"; };
 		E1CB81811E2451F80033FBB4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,28 +76,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E166566B1E607BBA00CDA308 /* VerticonsToolbox.framework in Frameworks */,
+				E1C37BE31E6C848B009C4598 /* VerticonsToolbox.framework in Frameworks */,
+				E1C37BDF1E6C848B009C4598 /* MoBetterBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E16656601E607A1B00CDA308 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E16656651E607A1B00CDA308 /* MoBetterBluetooth.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		E1A2E06C1C03A89600820375 = {
 			isa = PBXGroup;
 			children = (
+				E1C37BD61E6C8316009C4598 /* MoBetterBluetooth.xcodeproj */,
 				E1A2E0771C03A89600820375 /* ButtonLed */,
 				E1A2E0761C03A89600820375 /* Products */,
 				E1B7622D1E5E144400B01E19 /* Frameworks */,
-				E166565F1E607A1B00CDA308 /* MoBetterBluetooth.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +124,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E1C37BD71E6C8316009C4598 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1C37BDC1E6C8316009C4598 /* MoBetterBluetooth.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -133,12 +142,13 @@
 				E1A2E0711C03A89600820375 /* Sources */,
 				E1A2E0721C03A89600820375 /* Frameworks */,
 				E1A2E0731C03A89600820375 /* Resources */,
-				E1CB81861E2454670033FBB4 /* Embed Frameworks */,
+				E1C37BE51E6C848B009C4598 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E16656681E607A5400CDA308 /* PBXTargetDependency */,
+				E1C37BDE1E6C83F5009C4598 /* PBXTargetDependency */,
+				E1C37BE21E6C848B009C4598 /* PBXTargetDependency */,
 			);
 			name = ButtonLed;
 			productName = ButtonLed;
@@ -175,8 +185,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = E16656601E607A1B00CDA308 /* Products */;
-					ProjectRef = E166565F1E607A1B00CDA308 /* MoBetterBluetooth.xcodeproj */;
+					ProductGroup = E1C37BD71E6C8316009C4598 /* Products */;
+					ProjectRef = E1C37BD61E6C8316009C4598 /* MoBetterBluetooth.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -187,11 +197,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E16656651E607A1B00CDA308 /* MoBetterBluetooth.framework */ = {
+		E1C37BDC1E6C8316009C4598 /* MoBetterBluetooth.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = MoBetterBluetooth.framework;
-			remoteRef = E16656641E607A1B00CDA308 /* PBXContainerItemProxy */;
+			remoteRef = E1C37BDB1E6C8316009C4598 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -223,10 +233,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E16656681E607A5400CDA308 /* PBXTargetDependency */ = {
+		E1C37BDE1E6C83F5009C4598 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MoBetterBluetooth;
-			targetProxy = E16656671E607A5400CDA308 /* PBXContainerItemProxy */;
+			targetProxy = E1C37BDD1E6C83F5009C4598 /* PBXContainerItemProxy */;
+		};
+		E1C37BE21E6C848B009C4598 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MoBetterBluetooth;
+			targetProxy = E1C37BE11E6C848B009C4598 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -341,6 +356,7 @@
 		E1A2E0881C03A89600820375 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -356,6 +372,7 @@
 		E1A2E0891C03A89600820375 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
