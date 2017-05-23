@@ -7,124 +7,126 @@
 //
 
 import UIKit
+import CoreBluetooth
 import VerticonsToolbox
 import MoBetterBluetooth
 
-class ViewController: UIViewController, CentralManagerTypesFactory {
+class ViewController: UIViewController {
+
+    private let ledCharacteristicId = Identifier(uuid: CBUUID(string: "DCBA1523-1212-EFDE-1523-785FEF13D123"), name: "LED")
+    private let buttonCharacteristicId = Identifier(uuid: CBUUID(string: "DCBA1524-1212-EFDE-1523-785FEF13D123"), name: "Button")
+    private let buttonLedServiceId = Identifier(uuid: CBUUID(string: "DCBA3154-1212-EFDE-1523-785FEF13D123"), name: "ButtonLed")
+    
+    private var manager: CentralManager!
+    private var peripheral: CentralManager.Peripheral!
+    private var ledCharacteristic: CentralManager.Characteristic!
 
     @IBOutlet weak var toggleLedButton: ToggleButton!
 
-    private var manager: CentralManager!
-
-    private var ledCharacteristic: CentralManager.Characteristic!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        toggleLedButton.isEnabled = false
-        toggleLedButton.listener = toggleLed
+        toggleLedButton.isEnabled = false // We need to obtain the LED characteristic before we enable the toggle button
+        toggleLedButton.listener = toggleLed // Our listener will toggle the LED
 
         // Create the subscription
-        
-        let buttonCharacteristicId = CentralManager.Identifier(uuid: buttonLedUuids[buttonCharacteristicName]!, name: buttonCharacteristicName)
-        let buttonSubscription = CentralManager.CharacteristicSubscription(id: buttonCharacteristicId, discoverDescriptors: false)
-
-        let ledCharacteristicId = CentralManager.Identifier(uuid: buttonLedUuids[ledCharacteristicName]!, name: ledCharacteristicName)
-        let ledSubscription = CentralManager.CharacteristicSubscription(id: ledCharacteristicId, discoverDescriptors: false)
-
-        let buttonLedServiceId = CentralManager.Identifier(uuid: buttonLedUuids[buttonLedServiceName]!, name: buttonLedServiceName)
+        let buttonSubscription = CentralManager.CharacteristicSubscription(id: buttonCharacteristicId)
+        let ledSubscription = CentralManager.CharacteristicSubscription(id: ledCharacteristicId)
         let serviceSubscription = CentralManager.ServiceSubscription(id: buttonLedServiceId, characteristics: [buttonSubscription, ledSubscription])
-
-        let peripheralSubscription = CentralManager.PeripheralSubscription(services: [serviceSubscription])
+        let peripheralSubscription = CentralManager.PeripheralSubscription(name: "ButtonLed", services: [serviceSubscription], autoConnect: true, autoDiscover: true)
 
         // Obtain a manager for the subscription
-        manager = CentralManager(subscription: peripheralSubscription, factory: self) { event in
+        manager = CentralManager(subscription: peripheralSubscription)
 
-            switch event { // Respond to the manager's events
-                
-                case .managerReady:
-                    do {
-                        print("Core Bluetooth is available and ready to use. Starting scanning.")
-                        try self.manager.startScanning()
-                    }
-                    catch {
-                        print("Cannot start scanning: \(error).")
-                    }
-                    
-                case .peripheralReady(let peripheral):
-                    
-                    print("A peripheral matching our subscription has been discovered.\n\(peripheral).\n\nStopping scanning")
-                    self.manager.stopScanning()
-                    
-                    guard self.ledCharacteristic == nil else {
-                        print("The ButtonLed peripheral has already been discovered???")
-                        return
-                    }
+        // Handle the manager's events
+        let _ = manager.addListener(self, handlerClassMethod: ViewController.managerEventHandler)
+    }
+    
+    private func managerEventHandler(_ event: CentralManagerEvent) {
 
-                    guard let buttonLedService = peripheral[buttonLedServiceId] else {
-                        print("The peripheral does not have a ButtonLed service???")
-                        return
-                    }
-                    
-                    guard let ledCharacteristic = buttonLedService[ledCharacteristicId] else {
-                        print("The ButtonLed service does not have an Led characterictic???")
-                        return
-                    }
-                    
-                    guard let buttonCharacteristic = buttonLedService[buttonCharacteristicId] else {
-                        print("The ButtonLed service does not have a Button characterictic???")
-                        return
-                    }
+        print("Central Manager Event - \(event).")
 
-                    self.ledCharacteristic = ledCharacteristic
-                    self.toggleLedButton.isEnabled = true
+        switch event { // Respond to the manager's events
+            
+            case .ready:
+                if case .failure(let error) = manager.startScanning()  { print("Cannot start scanning: \(error)") }
+            
+            case let .peripheralDiscovered(peripheral, _):
+                if !manager.stopScanning() { print("Cannot stop scanning") }
 
-                    do {
-                        print("Enabling button notifications.")
-                        try buttonCharacteristic.notify(enabled: true) { result in
+                self.peripheral = peripheral
+                let _ = peripheral.addListener(self, handlerClassMethod: ViewController.peripheralEventHandler)
 
-                            switch result {
+            default:
+                break
+        }
+    }
 
-                                case .success:
-                                    print("The hardware button was pushed.")
-                                    self.toggleLedButton.toggle()
+    private func peripheralEventHandler(_ event: PeripheralEvent) {
+        
+        if case .rssiUpdated = event {} else { print("Peripheral Event - \(event).") } // Don't print rssi updates; they happen too often
 
-                                case .failure(let error):
-                                    print("A button notification error occurred: \(error).")
-                            }
-                        }
-                    } catch {
-                        print("Cannot enable button notifications: \(error).")
-                    }
-
-                default:
-                    print("Central Manager Event - \(event).")
+        switch event {
+            
+        case .characteristicsDiscovered(let service):
+            
+            guard let ledCharacteristic = service[ledCharacteristicId] else {
+                print("The \(service.name) service does not have a \(ledCharacteristicId.name!) characterictic???")
+                return
             }
+            guard let buttonCharacteristic = service[buttonCharacteristicId] else {
+                print("The \(service.name) service does not have a \(buttonCharacteristicId.name!) characterictic???")
+                return
+            }
+
+            // Pressing the toggle button will toggle the hardware LED on/off (see ToggleLed)
+            self.ledCharacteristic = ledCharacteristic
+            toggleLedButton.isEnabled = true
+            
+
+            // Pressing the hardware button will also toggle the hardware LED on/off (see ToggleLed)
+            let buttonNotificationHandler = { (result: CentralManager.Characteristic.ReadResult) -> Void in
+                switch result {
+                case .success:
+                    let data = self.peripheral[self.buttonLedServiceId]![self.buttonCharacteristicId]!.cbCharacteristic!.value!
+                    print("The hardware button was pushed, value = \(data.toHexString(seperator: " "))")
+                    self.toggleLedButton.toggle() // Mirror the effect of pressing the UI's toggle button
+                    
+                case .failure(let error):
+                    print("A button notification error occurred: \(error).")
+                }
+            }
+            if case .failure(let error) = buttonCharacteristic.notify(enabled: true, handler: buttonNotificationHandler) {
+                print("Cannot enable button notifications: \(error)")
+            }
+
+        default:
+            break
+            
         }
     }
 
     // This is the toggle button listener. It will be called whenever the button is toggled.
     //
-    // The button will be toggled in one of two ways:
+    // There are two actions which will result in the button being toggled:
     //     1) The user touches it on the UI causing the button's toggle() method to be invoked.
     //     2) The ButtonLed peripheral's hardware button is pressed. This causes our notification
     //        handler to be invoked. The handler in turn invokes the button's toggle() method.
     //
-    // The button's toggle method will invoke the listener. Our listener responds by setting
+    // The button's toggle method will invoke our listener. The listener responds by setting
     // the ButtonLed peripheral's LED to the indicated state.
     private func toggleLed(_ on: Bool) {
         print("Toggling the LED to \(on ? "on" : "off")")
 
-        do {
-            try ledCharacteristic.write(Data([on ? 1 : 0])) { result in
-                switch result {
-                case .success:
-                    print("The LED was toggled")
-                case .failure(let error):
-                    print("Cannot toggle the LED: \(error)")
-                }
+        let writeCompletionHandler = { (status: PeripheralStatus) -> Void in
+            switch status {
+            case .success:
+                print("The LED was toggled")
+            case .failure(let error):
+                print("Cannot toggle the LED: \(error)")
             }
-        } catch {
+        }
+        if case .failure(let error) = ledCharacteristic.write(Data([on ? 1 : 0]), completionHandler: writeCompletionHandler) {
             print("Cannot write to the LED: \(error)")
         }
     }
