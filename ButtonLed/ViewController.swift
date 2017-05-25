@@ -20,13 +20,14 @@ class ViewController: UIViewController {
     private var manager: CentralManager!
     private var peripheral: CentralManager.Peripheral!
     private var ledCharacteristic: CentralManager.Characteristic!
+    private var buttonCharacteristic: CentralManager.Characteristic!
 
+    @IBOutlet weak var readButton: UIButton!
     @IBOutlet weak var toggleLedButton: ToggleButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        toggleLedButton.isEnabled = false // We need to obtain the LED characteristic before we enable the toggle button
         toggleLedButton.listener = toggleLed // Our listener will toggle the LED
 
         // Create the subscription
@@ -74,30 +75,30 @@ class ViewController: UIViewController {
                 print("The \(service.name) service does not have a \(ledCharacteristicId.name!) characterictic???")
                 return
             }
+            self.ledCharacteristic = ledCharacteristic
+
             guard let buttonCharacteristic = service[buttonCharacteristicId] else {
                 print("The \(service.name) service does not have a \(buttonCharacteristicId.name!) characterictic???")
                 return
             }
+            self.buttonCharacteristic = buttonCharacteristic
+
+            readButton.isEnabled = true
 
             // Pressing the toggle button will toggle the hardware LED on/off (see ToggleLed)
-            self.ledCharacteristic = ledCharacteristic
             toggleLedButton.isEnabled = true
-            
 
-            // Pressing the hardware button will also toggle the hardware LED on/off (see ToggleLed)
-            let buttonNotificationHandler = { (result: CentralManager.Characteristic.ReadResult) -> Void in
+            // Via notifications the hardware button is made to mirror the toggle button
+            if case .failure(let error) = buttonCharacteristic.notify(enabled: true, handler: { (result: CentralManager.Characteristic.ReadResult) -> Void in
                 switch result {
                 case .success:
-                    let data = self.peripheral[self.buttonLedServiceId]![self.buttonCharacteristicId]!.cbCharacteristic!.value!
-                    print("The hardware button was pushed, value = \(data.toHexString(seperator: " "))")
-                    self.toggleLedButton.toggle() // Mirror the effect of pressing the UI's toggle button
-                    
+                    print("The hardware button was pressed.")
+                    self.toggleLedButton.toggle()
                 case .failure(let error):
                     print("A button notification error occurred: \(error).")
                 }
-            }
-            if case .failure(let error) = buttonCharacteristic.notify(enabled: true, handler: buttonNotificationHandler) {
-                print("Cannot enable button notifications: \(error)")
+            }) {
+                print("Cannot enable button notifications: \(error).")
             }
 
         default:
@@ -128,6 +129,34 @@ class ViewController: UIViewController {
         }
         if case .failure(let error) = ledCharacteristic.write(Data([on ? 1 : 0]), completionHandler: writeCompletionHandler) {
             print("Cannot write to the LED: \(error)")
+        }
+    }
+
+    @IBAction func readCharacteristics(_ sender: Any) {
+        let buttonReadHandler = { (result: CentralManager.Characteristic.ReadResult) -> Void in
+            switch result {
+            case .success(let data):
+                print("The button's value is \(data.toHexString(seperator: " "))")
+                
+            case .failure(let error):
+                print("A button read error occurred: \(error).")
+            }
+        }
+        if case .failure(let error) = buttonCharacteristic.read(buttonReadHandler) {
+            print("Cannot read the button: \(error)")
+        }
+
+        let ledReadHandler = { (result: CentralManager.Characteristic.ReadResult) -> Void in
+            switch result {
+            case .success(let data):
+                print("The led's value is \(data.toHexString(seperator: " "))")
+                
+            case .failure(let error):
+                print("An led read error occurred: \(error).")
+            }
+        }
+        if case .failure(let error) = ledCharacteristic.read(ledReadHandler) {
+            print("Cannot read the led: \(error)")
         }
     }
 }
