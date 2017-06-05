@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        readButton.isHidden = true
+
         toggleLedButton.listener = toggleLed // Our listener will toggle the LED
 
         // Create the subscription
@@ -83,10 +85,22 @@ class ViewController: UIViewController {
             }
             self.buttonCharacteristic = buttonCharacteristic
 
-            readButton.isEnabled = true
+            if case .failure(let error) = ledCharacteristic.read({ (result: CentralManager.Characteristic.ReadResult) -> Void in
+                    switch result {
+                    case .success(let data):
+                        // Pressing the toggle button will toggle the hardware LED on/off (see ToggleLed)
+                        self.toggleLedButton.isEnabled = true
+                        self.toggleLedButton.isSelected = (data[0] & 1) != 0 // Selected if LED is on
+                        
+                    case .failure(let error):
+                        print("An led read error occurred: \(error).")
+                    }
+                })
+            {
+                print("Cannot read the led: \(error)")
+            }
 
-            // Pressing the toggle button will toggle the hardware LED on/off (see ToggleLed)
-            toggleLedButton.isEnabled = true
+            readButton.isEnabled = true
 
             // Via notifications the hardware button is made to mirror the toggle button
             if case .failure(let error) = buttonCharacteristic.notify(enabled: true, handler: { (result: CentralManager.Characteristic.ReadResult) -> Void in
@@ -114,20 +128,20 @@ class ViewController: UIViewController {
     //     2) The ButtonLed peripheral's hardware button is pressed. This causes our notification
     //        handler to be invoked. The handler in turn invokes the button's toggle() method.
     //
-    // The button's toggle method will invoke our listener. The listener responds by setting
-    // the ButtonLed peripheral's LED to the indicated state.
-    private func toggleLed(_ on: Bool) {
-        print("Toggling the LED to \(on ? "on" : "off")")
+    // The button's toggle method will invoke our listener. The listener responds by toggling
+    // the ButtonLed peripheral's LED.
+    private func toggleLed(_ newState: Bool) {
+        print("Toggling the LED to \(newState ? "on" : "off")")
 
         let writeCompletionHandler = { (status: PeripheralStatus) -> Void in
             switch status {
             case .success:
-                print("The LED was toggled")
+                print("The LED was successfully toggled")
             case .failure(let error):
                 print("Cannot toggle the LED: \(error)")
             }
         }
-        if case .failure(let error) = ledCharacteristic.write(Data([on ? 1 : 0]), completionHandler: writeCompletionHandler) {
+        if case .failure(let error) = ledCharacteristic.write(Data([newState ? 1 : 0]), completionHandler: writeCompletionHandler) {
             print("Cannot write to the LED: \(error)")
         }
     }
