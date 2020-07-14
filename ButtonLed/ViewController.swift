@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         manager = CentralManager(subscription: peripheralSubscription)
 
         // Handle the manager's events
-        let _ = manager.addListener(self, handlerClassMethod: ViewController.managerEventHandler)
+        _ = manager.addListener(self, handlerClassMethod: ViewController.managerEventHandler)
     }
     
     private func managerEventHandler(_ event: CentralManagerEvent) {

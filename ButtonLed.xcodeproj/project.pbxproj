@@ -131,7 +131,7 @@
 			};
 			buildConfigurationList = E1A2E0701C03A89600820375 /* Build configuration list for PBXProject "ButtonLed" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
